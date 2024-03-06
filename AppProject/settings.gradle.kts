@@ -23,7 +23,7 @@ val includeBuildSample = true
 if (includeBuildSample) {
     includeBuild("../LibsProject") {
         dependencySubstitution {
-            //substitute(module("com.jibru.libs:core")).using(project(":lib-core"))
+            substitute(module("com.jibru.libs:firebase-analytics")).using(project(":lib-firebase-analytics"))
         }
     }
 }

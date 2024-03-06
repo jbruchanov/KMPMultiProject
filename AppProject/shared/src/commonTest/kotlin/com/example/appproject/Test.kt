@@ -1,12 +1,13 @@
 package com.example.appproject
 
+import com.example.libsproject.firebase.platformFirebaseAnalytics
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertNotNull
 
 class CommonGreetingTest {
 
     @Test
-    fun testExample() {
-        assertTrue(Greeting().greet().contains("Hello"), "Check 'Hello' is mentioned")
+    fun testAnalytics() {
+        assertNotNull(platformFirebaseAnalytics())
     }
 }
