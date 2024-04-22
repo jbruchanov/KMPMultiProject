@@ -51,6 +51,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation("io.github.skolson:kmp-io:0.1.6")
         }
 
         commonTest.dependencies {
