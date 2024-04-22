@@ -1,5 +1,3 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
@@ -18,6 +16,8 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    applyDefaultHierarchyTemplate()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -41,12 +41,15 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        iosMain.dependencies {
+
         }
     }
 }
@@ -62,3 +65,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
+
+task("testClasses")
