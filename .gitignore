@@ -207,3 +207,4 @@ iOSInjectionProject/
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,java,swift,xcode,kotlin,android
 AppProject/.kotlin
+LibsProject/.kotlin
