@@ -26,6 +26,8 @@ kotlin {
         }
     }
 
+    jvm()
+
     applyDefaultHierarchyTemplate()
 
     cocoapods {

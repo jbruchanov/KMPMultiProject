@@ -17,6 +17,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    jvm()
 
     applyDefaultHierarchyTemplate()
 
@@ -43,10 +44,15 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation("com.jibru.libs:shared:0.0.1")
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.compose.ui.tooling.preview)
         }
 
         iosMain.dependencies {
