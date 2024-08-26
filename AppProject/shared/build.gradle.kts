@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.jetbrainsComposeCompiler)
@@ -14,24 +13,9 @@ kotlin {
             }
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
     jvm()
 
     applyDefaultHierarchyTemplate()
-
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "16.0"
-        podfile = project.file("../appIos/Podfile")
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-    }
 
     sourceSets {
         androidMain.dependencies {
@@ -53,10 +37,6 @@ kotlin {
 
         jvmMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
-        }
-
-        iosMain.dependencies {
-
         }
     }
 }
