@@ -1,11 +1,10 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.jetbrainsComposeCompiler)
+    id("maven-publish")
 }
 
 kotlin {
@@ -21,41 +20,37 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
         version = "1.0"
         ios.deploymentTarget = "16.0"
-        podfile = project.file("../appIos/Podfile")
-        framework {
-            baseName = "shared"
-            isStatic = true
+        pod("GoogleMaps") {
+            version = "9.1.0"
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
-
+    
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
-        }
-
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(project(":lib-firebase-analytics"))
-            implementation(project(":lib-google-maps"))
+            //put your multiplatform dependencies here
         }
-
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        androidMain {
+            dependencies {
+                implementation(libs.google.maps.compose)
+            }
         }
     }
 }
 
 android {
-    namespace = "com.example.libsproject"
+    namespace = "com.example.libsproject.firebase"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
@@ -63,5 +58,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+group = "com.jibru.libs"
+version = "1.0.0"
+publishing {
+    publications {
+        withType(MavenPublication::class.java).configureEach {
+            artifactId = artifactId.replace("lib-", "")
+        }
     }
 }

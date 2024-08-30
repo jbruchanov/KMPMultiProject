@@ -12,7 +12,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
             }
         }
     }
@@ -30,6 +30,11 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+
+        pod("GoogleMaps") {
+            version = "9.1.0"
+            extraOpts += listOf("-compiler-option", "-fmodules")
+        }
     }
 
     sourceSets {
@@ -44,7 +49,8 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation("com.jibru.libs:firebase-analytics:1.0.0")
+            //implementation("com.jibru.libs:firebase-analytics:1.0.0")
+            implementation("com.jibru.libs:google-maps:1.0.0")
         }
 
         commonTest.dependencies {
@@ -60,7 +66,7 @@ android {
         minSdk = 24
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
