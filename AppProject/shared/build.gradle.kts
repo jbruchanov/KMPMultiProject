@@ -1,4 +1,6 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -16,9 +18,16 @@ kotlin {
             }
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+
+    iosX64 {
+        linkGoogleMaps()
+    }
+    iosArm64 {
+        linkGoogleMaps()
+    }
+    iosSimulatorArm64 {
+        linkGoogleMaps()
+    }
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -68,5 +77,17 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+fun KotlinNativeTarget.linkGoogleMaps() {
+    binaries.configureEach {
+        if (this is TestExecutable) {
+            println("Adding linkerOpts")
+            linkerOpts(
+                "-framework", "GoogleMapsCore",
+                "-framework", "GoogleMapsBase",
+            )
+        }
     }
 }
