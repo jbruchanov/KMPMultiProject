@@ -25,19 +25,14 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = "1.0"
-        ios.deploymentTarget = "16.0"
+        ios.deploymentTarget = libs.versions.ios.deployment.target.get()
         podfile = project.file("../appIos/Podfile")
         framework {
             baseName = "shared"
             isStatic = true
         }
 
-        pod("FirebaseCore") { linkOnly = true }
-        pod("GoogleAppMeasurement") { linkOnly = true }
-        pod("GoogleUtilities") { linkOnly = true }
-        pod("FirebaseInstallations") { linkOnly = true }
-        pod("nanopb") { linkOnly = true }
-        pod("FirebaseAnalytics") { linkOnly = true }
+        pod("GoogleMaps") { linkOnly = true }
     }
 
     sourceSets {
@@ -52,7 +47,7 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation("com.jibru.libs:firebase-analytics:1.0.0")
+            implementation("com.jibru.libs:google-maps:1.0.0")
         }
 
         commonTest.dependencies {
@@ -63,7 +58,7 @@ kotlin {
 
 android {
     namespace = "com.example.libsproject"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         minSdk = 24
     }

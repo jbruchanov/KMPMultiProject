@@ -4,6 +4,7 @@ kotlin = "2.2.0"
 compose = "1.8.2"
 compose-material3 = "1.8.2"
 androidx-activityCompose = "1.8.0"
+ios-deployment-target = "18.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

@@ -1,25 +1,21 @@
 package com.example.appproject
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import appproject.shared.generated.resources.Res
-import com.example.appproject.Greeting
-import com.example.libsproject.firebase.platformFirebaseAnalytics
+import com.example.libsproject.googlemaps.platformGoogleMapsObject
+import com.example.libsproject.googlemaps.platformGoogleMapsVersion
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -31,15 +27,15 @@ fun App() {
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")
             }
-            LaunchedEffect(Unit) {
-                platformFirebaseAnalytics().logEvent("AppTestScreen")
-            }
             AnimatedVisibility(showContent) {
                 Column(
                     Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Compose: $greeting")
+                    Text("Greeting: $greeting")
+                    Text("GMapsVersion: ${platformGoogleMapsVersion()}")
+                    val gmapsObj = remember { platformGoogleMapsObject() }
+                    Text("GMapsObject: $gmapsObj")
                 }
             }
         }
