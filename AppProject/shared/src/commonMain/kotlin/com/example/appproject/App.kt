@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import appproject.shared.generated.resources.Res
 import com.example.appproject.Greeting
 import com.example.libsproject.firebase.platformFirebaseAnalytics
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -38,7 +39,6 @@ fun App() {
                     Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(painterResource("compose-multiplatform.xml"), null)
                     Text("Compose: $greeting")
                 }
             }

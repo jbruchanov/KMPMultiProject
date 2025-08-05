@@ -1,18 +1,20 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
+    alias(libs.plugins.kotlinComposeCompiler)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
 }
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
     iosX64()
@@ -29,6 +31,13 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+
+        pod("FirebaseCore") { linkOnly = true }
+        pod("GoogleAppMeasurement") { linkOnly = true }
+        pod("GoogleUtilities") { linkOnly = true }
+        pod("FirebaseInstallations") { linkOnly = true }
+        pod("nanopb") { linkOnly = true }
+        pod("FirebaseAnalytics") { linkOnly = true }
     }
 
     sourceSets {
@@ -59,7 +68,7 @@ android {
         minSdk = 24
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
