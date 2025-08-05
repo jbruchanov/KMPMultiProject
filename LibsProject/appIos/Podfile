@@ -3,4 +3,5 @@ target 'appIos' do
   platform :ios, '18.6'
   pod 'shared', :path => '../shared'
   pod 'FirebaseAnalytics', '10.21.0'
+  pod 'GoogleMaps', '10.1.0'
 end

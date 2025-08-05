@@ -1,13 +1,11 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinComposeCompiler)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsCompose)
+    id("maven-publish")
 }
 
 kotlin {
@@ -22,41 +20,32 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
         version = "1.0"
         ios.deploymentTarget = libs.versions.ios.deployment.target.get()
-        podfile = project.file("../appIos/Podfile")
-        framework {
-            baseName = "shared"
-            isStatic = true
+        pod("GoogleMaps") {
+            version = libs.versions.cocoa.google.maps.get()
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
-
+    
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
-        }
-
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.components.resources)
-            implementation(project(":lib-google-maps"))
+            //put your multiplatform dependencies here
         }
-
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.google.maps.compose)
+            implementation(libs.google.maps.compose.utils)
+            implementation(libs.google.maps.compose.widgets)
         }
     }
 }
 
 android {
-    namespace = "com.example.libsproject"
+    namespace = "com.example.libsproject.googlemaps"
     compileSdk = 35
     defaultConfig {
         minSdk = 24
@@ -64,5 +53,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+    }
+}
+
+group = "com.jibru.libs"
+version = "1.0.0"
+publishing {
+    publications {
+        withType(MavenPublication::class.java).configureEach {
+            artifactId = artifactId.replace("lib-", "")
+        }
     }
 }

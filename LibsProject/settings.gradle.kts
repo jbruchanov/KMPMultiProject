@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 rootProject.name = "LibsProject"
 include(":appAndroid")
 include(":shared")
-include(":lib-firebase-analytics")
+//include(":lib-firebase-analytics")
+include(":lib-google-maps")
