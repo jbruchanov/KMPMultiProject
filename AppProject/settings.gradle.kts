@@ -19,11 +19,11 @@ include(":appAndroid")
 include(":shared")
 
 
-val includeBuildSample = true
+val includeBuildSample = false
 if (includeBuildSample) {
     includeBuild("../LibsProject") {
         dependencySubstitution {
-            substitute(module("com.jibru.libs:google-maps")).using(project(":lib-google-maps"))
+
         }
     }
 }

@@ -47,7 +47,6 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation("com.jibru.libs:google-maps:1.0.0")
         }
 
         commonTest.dependencies {
