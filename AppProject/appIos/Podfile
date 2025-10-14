@@ -1,5 +1,0 @@
-target 'appIos' do
-  use_frameworks!
-  platform :ios, '18.0'
-  pod 'shared', :path => '../shared'
-end

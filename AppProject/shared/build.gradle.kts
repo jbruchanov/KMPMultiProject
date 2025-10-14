@@ -1,10 +1,10 @@
+import org.gradle.internal.classpath.Instrumented.systemProperty
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlinComposeCompiler)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
@@ -17,28 +17,18 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = libs.versions.ios.deployment.target.get()
-        podfile = project.file("../appIos/Podfile")
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-
-        pod("GoogleMaps") { linkOnly = true }
-    }
 
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+        }
+        androidUnitTest.dependencies {
+            implementation(libs.robolectric)
+            implementation(libs.bundles.junit)
+            implementation(libs.junit.vintage.engine)
+            implementation("androidx.compose.ui:ui-test-junit4-android:1.9.0")
+            implementation("androidx.compose.ui:ui-test-manifest:1.9.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -57,12 +47,25 @@ kotlin {
 
 android {
     namespace = "com.example.libsproject"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         minSdk = 24
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+
+        unitTests.all {
+            it.useJUnitPlatform()
+            //necessary for test.ThreeTenTestInit
+            //https://junit.org/junit5/docs/current/user-guide/#extensions-registration-automatic
+            systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
+        }
     }
 }
