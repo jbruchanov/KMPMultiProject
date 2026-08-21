@@ -1,21 +1,22 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
     id("maven-publish")
 }
 
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    android {
+        namespace = "com.example.libsproject.googlemaps"
+        compileSdk = 37
+        minSdk = 24
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
         }
+        withHostTest { }
     }
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -41,18 +42,6 @@ kotlin {
             implementation(libs.google.maps.compose.utils)
             implementation(libs.google.maps.compose.widgets)
         }
-    }
-}
-
-android {
-    namespace = "com.example.libsproject.googlemaps"
-    compileSdk = 35
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

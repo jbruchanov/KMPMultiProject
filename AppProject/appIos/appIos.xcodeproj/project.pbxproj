@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -338,7 +338,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"appIos/Preview Content\"";
-				DEVELOPMENT_TEAM = XV23VKUG35;
+				DEVELOPMENT_TEAM = 3G5L9B565U;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = appIos/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -360,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"appIos/Preview Content\"";
-				DEVELOPMENT_TEAM = XV23VKUG35;
+				DEVELOPMENT_TEAM = 3G5L9B565U;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = appIos/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

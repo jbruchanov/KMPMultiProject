@@ -1,16 +1,12 @@
 package com.example.appproject
 
-import com.example.libsproject.googlemaps.platformGoogleMapsObject
 import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class CommonGreetingTest {
 
     @Test
-    fun testGmaps() {
-        runCatching {
-            //doesn't work in jvm
-            assertNotNull(platformGoogleMapsObject())
-        }
+    fun testGreeting() {
+        assertTrue(Greeting().greet().contains("AppProject"), "Check AppProject is mentioned")
     }
 }
